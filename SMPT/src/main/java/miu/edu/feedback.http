@@ -1,0 +1,8 @@
+POST http://localhost:8088/email/send
+content-Type: application/json
+
+{
+  "name": "Ati",
+  "email": "name@gmail.com",
+  "feedback": "your app is awesome :)"
+}
