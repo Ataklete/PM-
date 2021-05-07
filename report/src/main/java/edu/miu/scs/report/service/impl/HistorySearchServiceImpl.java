@@ -53,19 +53,56 @@ public class HistorySearchServiceImpl {
 	public String exportReport(String format) throws FileNotFoundException, JRException{
 		List<SearchHistory> userList = this.listHisReport();
 
-		String createdURL = System.getProperty("user.dir") + "/eshop-report" + "/pdf";
+		String createdURL = System.getProperty("user.dir")  + "/pdf";
+//		String createdURL = "C:\\Users\\atakl\\OneDrive\\Desktop\\report";
+//		String createdURL = "D:\\MIU\\Project Management PM\\PM Projects(Ataklete Haile)\\PM-\\report\\pdf";
 
-		File file = ResourceUtils.getFile("classpath:templates/searchHistory.jrxml");
+		File file = ResourceUtils.getFile("classpath:templates/productReport.jrxml");
 		JasperReport jasper = JasperCompileManager.compileReport(file.getAbsolutePath());
 		JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(userList);
 		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put("createdBy","Chiba");
+		parameters.put("createdBy","Ati");
 		JasperPrint jasperPrint = JasperFillManager.fillReport(jasper,parameters,ds);
 		if(format.equalsIgnoreCase("pdf"))
 		{
-			JasperExportManager.exportReportToPdfFile(jasperPrint,createdURL + "/searchHistory.jrxml");
+			JasperExportManager.exportReportToPdfFile(jasperPrint,createdURL + "/searchHistory.pdf");
 
 		}
-		return createdURL + "/projectFile.pdf";
+		if(format.equalsIgnoreCase("html"))
+		{
+			JasperExportManager.exportReportToHtmlFile(jasperPrint,createdURL + "/searchHistory.html");
+
+		}
+
+		return "report generated in path "+createdURL;
+	}
+	public String exportReportUser() throws FileNotFoundException, JRException{
+		List<DemoUser> userList = this.getUserList();
+
+		String createdURL = System.getProperty("user.dir")  + "/pdf";
+//		String createdURL = "C:\\Users\\atakl\\OneDrive\\Desktop\\report";
+//		String createdURL = "D:\\MIU\\Project Management PM\\PM Projects(Ataklete Haile)\\PM-\\report\\pdf";
+		File file = ResourceUtils.getFile("classpath:templates/users.jrxml");
+		JasperReport jasper = JasperCompileManager.compileReport(file.getAbsolutePath());
+		JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(userList);
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("createdBy","Ati");
+		JasperPrint jasperPrint = JasperFillManager.fillReport(jasper,parameters,ds);
+//		if(format.equalsIgnoreCase("users/pdf"))
+//		{
+//			JasperExportManager.exportReportToPdfFile(jasperPrint,createdURL + "\\users.pdf");
+//
+//		}
+//		if(format.equalsIgnoreCase("users/html"))
+//		{
+//			JasperExportManager.exportReportToHtmlFile(jasperPrint,createdURL + "\\users.html");
+//
+//		}
+//		if(format.equalsIgnoreCase("users"))
+//		{
+			JasperExportManager.exportReportToPdfFile(jasperPrint,createdURL + "\\user.pdf");
+
+//		}
+		return "report generated in path "+createdURL;
 	}
 }

@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @NoArgsConstructor
 @ToString
@@ -13,6 +14,8 @@ import javax.persistence.Id;
 @Getter
 @AllArgsConstructor
 @Entity
+@Data
+@Table(name = "searchhistory")
 public class SearchHistory {
     @Id
 	private int id;
